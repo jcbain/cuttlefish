@@ -2,13 +2,18 @@
 % Please edit documentation in R/utils.R
 \name{extract_colors}
 \alias{extract_colors}
-\title{Find Unique Colors in an Image}
+\title{Find Unique RGB Colors in an Image}
 \usage{
 extract_colors(image)
 }
 \arguments{
 \item{image}{The image to load.}
 }
+\value{
+Returns a matrix with three columns refering to
+    red, green and blue states of the pixel.
+}
 \description{
-Find Unique Colors in an Image
+`extract_colors` takes in an image and returns all of the
+unique colors in the image in RGB color-space.
 }

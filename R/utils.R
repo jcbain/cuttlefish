@@ -4,7 +4,7 @@
 #' unique colors in the image in RGB color-space.
 #'
 #' @param image The image to load.
-#' @return Returns a tibble with three columns refering to
+#' @return Returns a matrix with three columns refering to
 #'     red, green and blue states of the pixel.
 extract_colors <- function(image){
   img = magick::image_read(image)
