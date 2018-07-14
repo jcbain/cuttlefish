@@ -1,3 +1,15 @@
+#' Calculate the Distance between a Point and a Vector
+#'
+#' Takes a point `x` and calculates the euclidean distance from a
+#' vector `y`.
+#'
+#' @param x A numerical value.
+#' @param y A numerical value or vector.
+#' @return A vector of distances
+euclid_distance <- function(x, y){
+  sqrt((y-x)^2)
+}
+
 #' Find the n Most Distinct Colors
 #'
 #' `distint_hsv` selects the most distinct set of colors from a set of colors.
