@@ -2,3 +2,6 @@
 *.Rproj.user/*
 .Rproj.user
 .Rhistory
+**/.Rdata
+**/.DS_Store
+
