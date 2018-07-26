@@ -24,7 +24,7 @@ extract_colors <- function(image){
   hexcomps = apply(bitmap, MARGIN=1, FUN=function(x) x)
   hexes = unique(paste0("#", hexcomps[,1], hexcomps[,2], hexcomps[,3]))
 
-  rgb <- t(col2rgb(hexes))
+  rgb = t(col2rgb(hexes))
   apply(X = rgb, MARGIN = 2, FUN = as.numeric)
 }
 
@@ -46,7 +46,7 @@ distinct_hsv <- function(x, n){
 
   # find a random starting index
   start_ind = sample(1:nrow(tmp_hsv), 1)
-  selection = matrix(, nrow = n, ncol = 3)
+  selection = matrix(nrow = n, ncol = 3)
   selection[1,] = tmp_hsv[start_ind, ]
 
   for(i in 2:n){
