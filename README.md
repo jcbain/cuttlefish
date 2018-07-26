@@ -16,7 +16,7 @@ library(rtweet)
 
 Imagine you have the following image and you thought, "Wow, I like those colors! I would like to make a color palette out of that." 
 
-<img src="man/figures/prairie_pippa.jpg" width="400px"/>
+<img src="man/figures/prairie_pippa.jpg" width="400px" align="center"/>
 
 Simple! How about a palette of 20 colors...
 
