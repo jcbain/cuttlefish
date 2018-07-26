@@ -1,11 +1,11 @@
 Package: cuttlefish
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Extract Colors from Your Images
 Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
+Author: James
+Maintainer: James Bain <jamescbain@gmail.com>
+Description: Extracts the n distinct colors from an image of your choosing
+    and returns a vector of hex colors.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
