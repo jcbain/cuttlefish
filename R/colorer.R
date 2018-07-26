@@ -33,39 +33,59 @@ extract_colors <- function(image){
 #' `distint_hsv` selects the most distinct set of colors from a set of colors.
 #' @param x Matrix of RGB colors.
 #' @param n `n` distinct colors to be output.
+#' @return Matrix of distinct hsv colors.
 distinct_hsv <- function(x, n){
 
   # convert to matrix to RBG then to HSV
   rgbmat = colorspace::RGB(x)
-  hsv = colorspace::coords(as(rgbmat, "HSV"))
+  tmp_hsv = colorspace::coords(as(rgbmat, "HSV"))
 
   # find max angle in HSV matrix and divide
-  max_angle = max(hsv[,3])
+  max_angle = max(tmp_hsv[,1])
   angle = max_angle/n
 
   # find a random starting index
-  start_ind = sample(1:nrow(hsv), 1)
+  start_ind = sample(1:nrow(tmp_hsv), 1)
   selection = matrix(, nrow = n, ncol = 3)
-  selection[1,] = hsv[start_ind, ]
+  selection[1,] = tmp_hsv[start_ind, ]
 
   for(i in 2:n){
     # create new angle
-    current_angle = selection[(i - 1), 3] + angle
+    current_angle = selection[(i - 1), 1] + angle
     if(current_angle > max_angle){
       current_angle = current_angle - max_angle
     }
 
     # find all values that are closest to new angle
-    min_ind = which.min(euclid_distance(current_angle, hsv[,3]))
-    closest_angle = hsv[min_ind, 3]
-    options = hsv[hsv[,3]==closest_angle,]
+    min_ind = which.min(euclid_distance(current_angle, tmp_hsv[,1]))
+    closest_angle = tmp_hsv[min_ind, 1]
+    options = tmp_hsv[tmp_hsv[,1]==closest_angle,]
 
-    # select the one that is the farthest distance
-    farthest_ind = which.max(as.matrix(pdist::pdist(selection[i-1,1:2], options[,1:2])))
+    if(is.null(dim(options))){
+      selection[i,] = t(matrix(options))
+    } else {
+      # select the one that is the farthest distance
+      farthest_ind = which.max(as.matrix(pdist::pdist(selection[i-1,2:3], options[,1:2])))
 
-    # assign that row to slection[i, ]
-    selection[i,] = options[farthest_ind,]
-  }
-
+      # assign that row to slection[i, ]
+      selection[i,] = options[farthest_ind,]
+    }
+    }
   selection
+}
+
+#' Create a Color Palette of n Colors from an Image
+#'
+#' Creates a color palette of n distinct colors from a provided image.
+#' @param img Path to image file.
+#' @param n `n` distinct colors.
+#' @return Vector of distinct hex colors.
+#' @export
+create_palette <- function(img, n){
+  img_colors = extract_colors(img)
+  hsv_mat = distinct_hsv(img_colors, n)
+  tmp_hsv = colorspace::HSV(hsv_mat)
+
+  tmp_rgb = colorspace::coords(as(tmp_hsv, "RGB"))
+  rgb(tmp_rgb, maxColorValue = 255)
 }

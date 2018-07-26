@@ -11,6 +11,9 @@ distinct_hsv(x, n)
 
 \item{n}{`n` distinct colors to be output.}
 }
+\value{
+Matrix of distinct hsv colors.
+}
 \description{
 `distint_hsv` selects the most distinct set of colors from a set of colors.
 }
