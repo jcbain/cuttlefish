@@ -89,3 +89,21 @@ create_palette <- function(img, n){
   tmp_rgb = colorspace::coords(as(tmp_hsv, "RGB"))
   rgb(tmp_rgb, maxColorValue = 255)
 }
+
+#' Create a Palette of the Most Prominent Colors of an Image
+#' 
+#' Creates a color palette from the most prominent `n` colors of a 
+#'     provided image.
+#' @param img Path to image file.
+#' @param n top `n` most prominent colors.
+#' @return Vector of the most prominent hex colors.
+#' @export
+prominent_palette <- function(img, n){
+  img = magick::image_read(img)
+  bitmap = img[[1]]
+  hexcomps = apply(bitmap, MARGIN=1, FUN=function(x) x)
+  hexes = paste0("#", hexcomps[,1], hexcomps[,2], hexcomps[,3])
+  
+  names(sort(table(hexes), decreasing = T))[1:n]
+}
+
