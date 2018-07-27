@@ -70,6 +70,8 @@ distinct_hsv <- function(x, n){
       # assign that row to slection[i, ]
       selection[i,] = options[farthest_ind,]
     }
+    removal_ind = which(tmp_hsv[,1] == selection[i,1] & tmp_hsv[,2] == selection[i,2] & tmp_hsv[,3] == selection[i,3])
+    tmp_hsv = tmp_hsv[-removal_ind,]
     }
   selection
 }
