@@ -56,8 +56,8 @@ distinct_hsv <- function(x, n){
       current_angle = current_angle - max_angle
     }
 
-    # find all values that are closest to new angle
-    min_ind = which.min(euclid_distance(current_angle, tmp_hsv[,1]))
+    # find all values that are closest to new angle and that aren't the previous angle
+    min_ind = which.min(euclid_distance(current_angle, tmp_hsv[tmp_hsv[,1]!=tmp_hsv[i-1,1],][,1]))
     closest_angle = tmp_hsv[min_ind, 1]
     options = tmp_hsv[tmp_hsv[,1]==closest_angle,]
 
@@ -70,6 +70,7 @@ distinct_hsv <- function(x, n){
       # assign that row to slection[i, ]
       selection[i,] = options[farthest_ind,]
     }
+    # remove color from possible selections
     removal_ind = which(tmp_hsv[,1] == selection[i,1] & tmp_hsv[,2] == selection[i,2] & tmp_hsv[,3] == selection[i,3])
     tmp_hsv = tmp_hsv[-removal_ind,]
     }
