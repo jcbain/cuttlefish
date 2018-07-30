@@ -28,11 +28,11 @@ extract_colors <- function(image){
 
 #' Find the n Most Distinct Colors
 #'
-#' `distint_hsv` selects the most distinct set of colors from a set of colors.
+#' `find_segmented` selects the most distinct set of colors from a set of colors.
 #' @param x Matrix of RGB colors.
 #' @param n `n` distinct colors to be output.
 #' @return Matrix of distinct hsv colors.
-distinct_hsv <- function(hexes, n){
+find_segmented <- function(hexes, n){
   uniq_hexes = unique(hexes)
   tmp_rgb = t(col2rgb(uniq_hexes))
   tmp_rgb = apply(X = tmp_rgb, MARGIN = 2, FUN = as.numeric)
@@ -82,22 +82,6 @@ distinct_hsv <- function(hexes, n){
 
 }
 
-#' Create a Color Palette of n Colors from an Image
-#'
-#' Creates a color palette of n distinct colors from a provided image.
-#' @param img Path to image file.
-#' @param n `n` distinct colors.
-#' @return Vector of distinct hex colors.
-#' @export
-create_palette <- function(img, n){
-  img_colors = extract_colors(img)
-  hsv_mat = distinct_hsv(img_colors, n)
-  tmp_hsv = colorspace::HSV(hsv_mat)
-
-  tmp_rgb = colorspace::coords(as(tmp_hsv, "RGB"))
-  rgb(tmp_rgb, maxColorValue = 255)
-}
-
 #' Create a Palette of the Most Prominent Colors of an Image
 #'
 #' Creates a color palette from the most prominent `n` colors of a
@@ -106,7 +90,7 @@ create_palette <- function(img, n){
 #' @param n top `n` most prominent colors.
 #' @return Vector of the most prominent hex colors.
 #' @export
-prominent_palette <- function(hexes, n){
+find_prominent <- function(hexes, n){
   names(sort(table(hexes), decreasing = T))[1:n]
 }
 
