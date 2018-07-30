@@ -10,6 +10,9 @@ create_palette(img, n, prominent.ord = FALSE)
 \item{img}{Path to image file.}
 
 \item{n}{`n` distinct colors.}
+
+\item{prominent.ord}{Option to choose prominent colors instead of segmenting
+the colors from a random starting color.}
 }
 \value{
 Vector of distinct hex colors.
