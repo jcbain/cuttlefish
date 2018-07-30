@@ -7,12 +7,12 @@
 #'     the colors from a random starting color.
 #' @return Vector of distinct hex colors.
 #' @export
-create_palette <- function(img, n, prominent.ord=FALSE){
+create_palette <- function(img, n, prominent.ord=FALSE, ...){
   img_colors = extract_colors(img)
   if(prominent.ord){
     colors <- cuttlefish::find_prominent(img_colors, n)
   } else {
-    colors <- cuttlefish::find_segmented(img_colors, n)
+    colors <- cuttlefish::find_segmented(img_colors, n, ...)
   }
   colors
 }

@@ -4,12 +4,15 @@
 \alias{find_segmented}
 \title{Find the n Most Distinct Colors}
 \usage{
-find_segmented(hexes, n)
+find_segmented(hexes, n, max.distance = TRUE)
 }
 \arguments{
 \item{hexes}{A vector of hex colors.}
 
 \item{n}{`n` distinct colors to be output.}
+
+\item{max.distance}{Option to make the distance from the saturation and value 
+of color_{i} from color_{i+1} either the farthest (TRUE) or closest (FALSE).}
 }
 \value{
 Matrix of distinct hsv colors.

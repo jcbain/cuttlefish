@@ -30,8 +30,10 @@ extract_colors <- function(image){
 #' `find_segmented` selects the most distinct set of colors from a set of colors.
 #' @param hexes A vector of hex colors.
 #' @param n `n` distinct colors to be output.
+#' @param max.distance Option to make the distance from the saturation and value 
+#'     of color_{i} from color_{i+1} either the farthest (TRUE) or closest (FALSE).
 #' @return Matrix of distinct hsv colors.
-find_segmented <- function(hexes, n){
+find_segmented <- function(hexes, n, max.distance = TRUE){
   uniq_hexes = unique(hexes)
   tmp_rgb = t(col2rgb(uniq_hexes))
   tmp_rgb = apply(X = tmp_rgb, MARGIN = 2, FUN = as.numeric)
@@ -64,11 +66,18 @@ find_segmented <- function(hexes, n){
     if(is.null(dim(options))){
       selection[i,] = t(matrix(options))
     } else {
+      
+      if(max.distance){ 
+        distance_direction = function(x){ which.max(x) }
+      } else {
+        distance_direction = function(x){ which.min(x) }  
+      }
+      
       # select the one that is the farthest distance
-      farthest_ind = which.max(as.matrix(pdist::pdist(selection[i-1,2:3], options[,1:2])))
+      selected_ind = distance_direction(as.matrix(pdist::pdist(selection[i-1,2:3], options[,1:2])))
 
       # assign that row to slection[i, ]
-      selection[i,] = options[farthest_ind,]
+      selection[i,] = options[selected_ind,]
     }
     # remove color from possible selections
     removal_ind = which(tmp_hsv[,1] == selection[i,1] & tmp_hsv[,2] == selection[i,2] & tmp_hsv[,3] == selection[i,3])
