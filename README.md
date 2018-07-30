@@ -9,7 +9,7 @@
 devtools::install_github("jcbain/cuttlefish")
 
 # load cuttlefish
-library(rtweet)
+library(cuttlefish)
 ```
 
 ## Usage
