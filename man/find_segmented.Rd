@@ -7,9 +7,9 @@
 find_segmented(hexes, n)
 }
 \arguments{
-\item{n}{`n` distinct colors to be output.}
+\item{hexes}{A vector of hex colors.}
 
-\item{x}{Matrix of RGB colors.}
+\item{n}{`n` distinct colors to be output.}
 }
 \value{
 Matrix of distinct hsv colors.

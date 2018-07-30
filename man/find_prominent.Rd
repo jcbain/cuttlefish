@@ -7,9 +7,9 @@
 find_prominent(hexes, n)
 }
 \arguments{
-\item{n}{top `n` most prominent colors.}
+\item{hexes}{A vector of hex colors.}
 
-\item{img}{Path to image file.}
+\item{n}{top `n` most prominent colors.}
 }
 \value{
 Vector of the most prominent hex colors.

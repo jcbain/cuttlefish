@@ -16,8 +16,7 @@ euclid_distance <- function(x, y){
 #' unique colors in the image in RGB color-space.
 #'
 #' @param image The image to load.
-#' @return Returns a matrix with three columns refering to
-#'     red, green and blue states of the pixel.
+#' @return Returns a vector of hex colors in the image.
 extract_colors <- function(image){
   img = magick::image_read(image)
   bitmap = img[[1]]
@@ -29,7 +28,7 @@ extract_colors <- function(image){
 #' Find the n Most Distinct Colors
 #'
 #' `find_segmented` selects the most distinct set of colors from a set of colors.
-#' @param x Matrix of RGB colors.
+#' @param hexes A vector of hex colors.
 #' @param n `n` distinct colors to be output.
 #' @return Matrix of distinct hsv colors.
 find_segmented <- function(hexes, n){
@@ -86,7 +85,7 @@ find_segmented <- function(hexes, n){
 #'
 #' Creates a color palette from the most prominent `n` colors of a
 #'     provided image.
-#' @param img Path to image file.
+#' @param hexes A vector of hex colors.
 #' @param n top `n` most prominent colors.
 #' @return Vector of the most prominent hex colors.
 #' @export

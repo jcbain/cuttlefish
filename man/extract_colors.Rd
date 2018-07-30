@@ -10,8 +10,7 @@ extract_colors(image)
 \item{image}{The image to load.}
 }
 \value{
-Returns a matrix with three columns refering to
-    red, green and blue states of the pixel.
+Returns a vector of hex colors in the image.
 }
 \description{
 `extract_colors` takes in an image and returns all of the
