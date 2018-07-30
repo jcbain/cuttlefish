@@ -14,7 +14,7 @@ create_palette(img, n, prominent.ord = FALSE, ...)
 \item{prominent.ord}{Option to choose prominent colors instead of segmenting
 the colors from a random starting color.}
 
-\item{...}{Additional arguments passed to `cuttlefish::find_segmented`.}
+\item{...}{Additional arguments passed to \link[cuttlefish]{find_segmented}.}
 }
 \value{
 Vector of distinct hex colors.
