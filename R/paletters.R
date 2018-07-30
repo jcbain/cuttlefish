@@ -5,6 +5,7 @@
 #' @param n `n` distinct colors.
 #' @param prominent.ord Option to choose prominent colors instead of segmenting
 #'     the colors from a random starting color.
+#' @param ... Additional arguments passed to `cuttlefish::find_segmented`.
 #' @return Vector of distinct hex colors.
 #' @export
 create_palette <- function(img, n, prominent.ord=FALSE, ...){
