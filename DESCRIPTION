@@ -16,4 +16,5 @@ Imports:
     magick
 Suggests:
     scales,
-    ggplot2
+    ggplot2,
+    testthat
