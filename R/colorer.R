@@ -33,6 +33,7 @@ extract_colors <- function(image){
 #' @param max.distance Option to make the distance from the saturation and value 
 #'     of color_{i} from color_{i+1} either the farthest (`TRUE`) or closest (`FALSE`).
 #' @return Matrix of distinct hsv colors.
+#' @export
 find_segmented <- function(hexes, n, max.distance = TRUE){
   uniq_hexes = unique(hexes)
   tmp_rgb = t(col2rgb(uniq_hexes))
