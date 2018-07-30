@@ -22,10 +22,8 @@ extract_colors <- function(image){
   img = magick::image_read(image)
   bitmap = img[[1]]
   hexcomps = apply(bitmap, MARGIN=1, FUN=function(x) x)
-  hexes = unique(paste0("#", hexcomps[,1], hexcomps[,2], hexcomps[,3]))
 
-  rgb = t(col2rgb(hexes))
-  apply(X = rgb, MARGIN = 2, FUN = as.numeric)
+  paste0("#", hexcomps[,1], hexcomps[,2], hexcomps[,3])
 }
 
 #' Find the n Most Distinct Colors
@@ -34,10 +32,13 @@ extract_colors <- function(image){
 #' @param x Matrix of RGB colors.
 #' @param n `n` distinct colors to be output.
 #' @return Matrix of distinct hsv colors.
-distinct_hsv <- function(x, n){
+distinct_hsv <- function(hexes, n){
+  uniq_hexes = unique(hexes)
+  tmp_rgb = t(col2rgb(uniq_hexes))
+  tmp_rgb = apply(X = tmp_rgb, MARGIN = 2, FUN = as.numeric)
 
   # convert to matrix to RBG then to HSV
-  rgbmat = colorspace::RGB(x)
+  rgbmat = colorspace::RGB(tmp_rgb)
   tmp_hsv = colorspace::coords(as(rgbmat, "HSV"))
 
   # find max angle in HSV matrix and divide
@@ -74,7 +75,11 @@ distinct_hsv <- function(x, n){
     removal_ind = which(tmp_hsv[,1] == selection[i,1] & tmp_hsv[,2] == selection[i,2] & tmp_hsv[,3] == selection[i,3])
     tmp_hsv = tmp_hsv[-removal_ind,]
     }
-  selection
+
+  tmp_hsv = colorspace::HSV(selection)
+  tmp_rgb = colorspace::coords(as(tmp_hsv, "RGB"))
+  rgb(tmp_rgb, maxColorValue = 255)
+
 }
 
 #' Create a Color Palette of n Colors from an Image
@@ -94,19 +99,14 @@ create_palette <- function(img, n){
 }
 
 #' Create a Palette of the Most Prominent Colors of an Image
-#' 
-#' Creates a color palette from the most prominent `n` colors of a 
+#'
+#' Creates a color palette from the most prominent `n` colors of a
 #'     provided image.
 #' @param img Path to image file.
 #' @param n top `n` most prominent colors.
 #' @return Vector of the most prominent hex colors.
 #' @export
-prominent_palette <- function(img, n){
-  img = magick::image_read(img)
-  bitmap = img[[1]]
-  hexcomps = apply(bitmap, MARGIN=1, FUN=function(x) x)
-  hexes = paste0("#", hexcomps[,1], hexcomps[,2], hexcomps[,3])
-  
+prominent_palette <- function(hexes, n){
   names(sort(table(hexes), decreasing = T))[1:n]
 }
 
