@@ -5,6 +5,11 @@ hues <- list('red' = c(0, 60), 'yellow' = c(60, 120), 'green' = c(120, 180),
 
 #' Subset hex colors by specific hues
 #'
+#' Finds the colors belonging to a specific hue.
+#' @param hexes A vector of hex colors.
+#' @param hue The hue of colors to be subset. Hues include 'red', 'yellow',
+#'   'green', 'cyan', 'blue' and 'magenta'.
+#' @return A vector of hex colors belonging to the selected hue.
 #' @export
 select_hue <- function(hexes, hue){
   if (hue %ni% c('red', 'yellow', 'green', 'cyan', 'blue', 'magenta')){

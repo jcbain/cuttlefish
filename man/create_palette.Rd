@@ -4,7 +4,7 @@
 \alias{create_palette}
 \title{Create a Color Palette of n Colors from an Image}
 \usage{
-create_palette(img, n, prominent.ord = FALSE, ...)
+create_palette(img, n, prominent.ord = FALSE, hue = NA, ...)
 }
 \arguments{
 \item{img}{Path to image file.}

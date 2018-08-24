@@ -3,3 +3,4 @@
 export(create_palette)
 export(find_prominent)
 export(find_segmented)
+export(select_hue)
