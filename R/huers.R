@@ -4,6 +4,8 @@ hues <- list('red' = c(0, 60), 'yellow' = c(60, 120), 'green' = c(120, 180),
              'cyan' = c(180, 240), 'blue' = c(240, 300), 'magenta' = c(300, 360))
 
 #' Subset hex colors by specific hues
+#'
+#' @export
 select_hue <- function(hexes, hue){
   if (hue %ni% c('red', 'yellow', 'green', 'cyan', 'blue', 'magenta')){
     stop(paste(hue, "is not a selectable hue."))

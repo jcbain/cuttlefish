@@ -8,8 +8,11 @@
 #' @param ... Additional arguments passed to \link[cuttlefish]{find_segmented}.
 #' @return Vector of distinct hex colors.
 #' @export
-create_palette <- function(img, n, prominent.ord=FALSE, ...){
+create_palette <- function(img, n, prominent.ord=FALSE, hue=NA, ...){
   img_colors = extract_colors(img)
+  if (!is.na(hue)){
+    img_colors = select_hue(img_colors, hue)
+  }
   if(prominent.ord){
     colors <- cuttlefish::find_prominent(img_colors, n)
   } else {
