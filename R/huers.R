@@ -17,5 +17,10 @@ select_hue <- function(hexes, hue){
   rgbmat = colorspace::RGB(tmp_rgb)
   tmp_hsv = colorspace::coords(as(rgbmat, "HSV"))
 
-  tmp_hsv[tmp_hsv[,1] >= degrees[1] & tmp_hsv[,1] < degrees[2],]
+  tmp_hsv = tmp_hsv[(tmp_hsv[,1] >= degrees[1] & tmp_hsv[,1] < degrees[2]),]
+
+  tmp_hsv
+
+  #tmp_rgb = colorspace::coords(as(colorspace::HSV(as.matrix(tmp_hsv)), "RGB"))
+  #rgb(tmp_rgb, maxColorValue = 255)
 }
