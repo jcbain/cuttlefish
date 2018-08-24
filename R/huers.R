@@ -9,18 +9,15 @@ select_hue <- function(hexes, hue){
   }
   degrees = get(hue, hues)
 
-  uniq_hexes = unique(hexes)
-  tmp_rgb = t(col2rgb(uniq_hexes))
+  tmp_rgb = t(col2rgb(hexes))
   tmp_rgb = apply(X = tmp_rgb, MARGIN = 2, FUN = as.numeric)
 
   # convert to matrix to RBG then to HSV
   rgbmat = colorspace::RGB(tmp_rgb)
   tmp_hsv = colorspace::coords(as(rgbmat, "HSV"))
 
-  tmp_hsv = tmp_hsv[(tmp_hsv[,1] >= degrees[1] & tmp_hsv[,1] < degrees[2]),]
+  tmp_hsv = tmp_hsv[(tmp_hsv[,1] >= degrees[1] & tmp_hsv[,1] <= degrees[2]),]
 
-  tmp_hsv
-
-  #tmp_rgb = colorspace::coords(as(colorspace::HSV(as.matrix(tmp_hsv)), "RGB"))
-  #rgb(tmp_rgb, maxColorValue = 255)
+  tmp_rgb = colorspace::coords(as(colorspace::HSV(as.matrix(tmp_hsv)), "RGB"))
+  rgb(tmp_rgb, maxColorValue = 255)
 }
