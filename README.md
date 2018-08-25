@@ -4,6 +4,8 @@
 
 ## Installation
 
+Currently, you can only install `cuttlefish` through the github repo.
+
 ```splus
 # install dev version (the only version currently)
 devtools::install_github("jcbain/cuttlefish")
