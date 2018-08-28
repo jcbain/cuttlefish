@@ -22,3 +22,10 @@ Vector of distinct hex colors.
 \description{
 Creates a color palette of n distinct colors from a provided image.
 }
+\examples{
+  # return 20 semi-evenly distributed colors from some image
+  create_palette('path/to/image.png', n = 20)
+
+  # return the 10 most prominent colors from some image
+  create_palette('path/to/image.jpg', n = 10, prominent.order = T)
+}
