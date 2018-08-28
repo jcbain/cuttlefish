@@ -7,6 +7,12 @@
 #'     the colors from a random starting color.
 #' @param ... Additional arguments passed to \link[cuttlefish]{find_segmented}.
 #' @return Vector of distinct hex colors.
+#' @examples
+#'   # return 20 semi-evenly distributed colors from some image
+#'   create_palette('path/to/image.png', n = 20)
+#'
+#'   # return the 10 most prominent colors from some image
+#'   create_palette('path/to/image.jpg', n = 10, prominent.order = T)
 #' @export
 create_palette <- function(img, n, prominent.ord=FALSE, hue=NA, ...){
   img_colors = extract_colors(img)
