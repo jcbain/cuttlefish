@@ -15,9 +15,9 @@
 #'   create_palette('path/to/image.jpg', n = 10, prominent.order = T)
 #' @export
 create_palette <- function(img, n, prominent.ord=FALSE, hue=NA, ...){
-  img_colors = extract_colors(img)
+  img_colors <- extract_colors(img)
   if (!is.na(hue)){
-    img_colors = select_hue(img_colors, hue)
+    img_colors <- select_hue(img_colors, hue)
   }
   if(prominent.ord){
     colors <- cuttlefish::find_prominent(img_colors, n)

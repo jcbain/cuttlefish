@@ -18,9 +18,9 @@ euclid_distance <- function(x, y){
 #' @param image The image to load.
 #' @return Returns a vector of hex colors in the image.
 extract_colors <- function(image){
-  img = magick::image_read(image)
-  bitmap = img[[1]]
-  hexcomps = apply(bitmap, MARGIN=1, FUN=function(x) x)
+  img <- magick::image_read(image)
+  bitmap <- img[[1]]
+  hexcomps <- apply(bitmap, MARGIN=1, FUN=function(x) x)
 
   paste0("#", hexcomps[,1], hexcomps[,2], hexcomps[,3])
 }
@@ -35,58 +35,58 @@ extract_colors <- function(image){
 #' @return Matrix of distinct hsv colors.
 #' @export
 find_segmented <- function(hexes, n, max.distance = TRUE){
-  uniq_hexes = unique(hexes)
-  tmp_rgb = t(col2rgb(uniq_hexes))
-  tmp_rgb = apply(X = tmp_rgb, MARGIN = 2, FUN = as.numeric)
+  uniq_hexes <- unique(hexes)
+  tmp_rgb <- t(col2rgb(uniq_hexes))
+  tmp_rgb <- apply(X = tmp_rgb, MARGIN = 2, FUN = as.numeric)
 
   # convert to matrix to RBG then to HSV
-  rgbmat = colorspace::RGB(tmp_rgb)
-  tmp_hsv = colorspace::coords(as(rgbmat, "HSV"))
+  rgbmat <- colorspace::RGB(tmp_rgb)
+  tmp_hsv <- colorspace::coords(as(rgbmat, "HSV"))
 
   # find max angle in HSV matrix and divide
-  max_angle = max(tmp_hsv[,1])
-  angle = max_angle/n
+  max_angle <- max(tmp_hsv[,1])
+  angle <- max_angle/n
 
   # find a random starting index
-  start_ind = sample(1:nrow(tmp_hsv), 1)
-  selection = matrix(nrow = n, ncol = 3)
-  selection[1,] = tmp_hsv[start_ind, ]
+  start_ind <- sample(1:nrow(tmp_hsv), 1)
+  selection <- matrix(nrow = n, ncol = 3)
+  selection[1,] <- tmp_hsv[start_ind, ]
 
   for(i in 2:n){
     # create new angle
-    current_angle = selection[(i - 1), 1] + angle
+    current_angle <- selection[(i - 1), 1] + angle
     if(current_angle > max_angle){
-      current_angle = current_angle - max_angle
+      current_angle <- current_angle - max_angle
     }
 
     # find all values that are closest to new angle and that aren't the previous angle
-    min_ind = which.min(euclid_distance(current_angle, tmp_hsv[tmp_hsv[,1]!=tmp_hsv[i-1,1],][,1]))
-    closest_angle = tmp_hsv[min_ind, 1]
-    options = tmp_hsv[tmp_hsv[,1]==closest_angle,]
+    min_ind <- which.min(euclid_distance(current_angle, tmp_hsv[tmp_hsv[,1]!=tmp_hsv[i-1,1],][,1]))
+    closest_angle <- tmp_hsv[min_ind, 1]
+    options <- tmp_hsv[tmp_hsv[,1] == closest_angle,]
 
     if(is.null(dim(options))){
-      selection[i,] = t(matrix(options))
+      selection[i,] <- t(matrix(options))
     } else {
       
       if(max.distance){ 
-        distance_direction = function(x){ which.max(x) }
+        distance_direction <- function(x){ which.max(x) }
       } else {
-        distance_direction = function(x){ which.min(x) }  
+        distance_direction <- function(x){ which.min(x) }  
       }
       
       # select the one that is the farthest distance
-      selected_ind = distance_direction(as.matrix(pdist::pdist(selection[i-1,2:3], options[,1:2])))
+      selected_ind <- distance_direction(as.matrix(pdist::pdist(selection[i-1,2:3], options[,1:2])))
 
       # assign that row to slection[i, ]
-      selection[i,] = options[selected_ind,]
+      selection[i,] <- options[selected_ind,]
     }
     # remove color from possible selections
-    removal_ind = which(tmp_hsv[,1] == selection[i,1] & tmp_hsv[,2] == selection[i,2] & tmp_hsv[,3] == selection[i,3])
-    tmp_hsv = tmp_hsv[-removal_ind,]
+    removal_ind <- which(tmp_hsv[,1] == selection[i,1] & tmp_hsv[,2] == selection[i,2] & tmp_hsv[,3] == selection[i,3])
+    tmp_hsv <- tmp_hsv[-removal_ind,]
     }
 
-  tmp_hsv = colorspace::HSV(selection)
-  tmp_rgb = colorspace::coords(as(tmp_hsv, "RGB"))
+  tmp_hsv <- colorspace::HSV(selection)
+  tmp_rgb <- colorspace::coords(as(tmp_hsv, "RGB"))
   rgb(tmp_rgb, maxColorValue = 255)
 
 }
