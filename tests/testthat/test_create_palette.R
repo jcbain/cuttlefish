@@ -1,5 +1,4 @@
 context("Create Palettes")
-library(cuttlefish)
 
 img_file <- "https://jeroen.github.io/images/frink.png"
 
