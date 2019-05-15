@@ -5,6 +5,7 @@
 #' @param n `n` distinct colors.
 #' @param prominent.ord Option to choose prominent colors instead of segmenting
 #'     the colors from a random starting color.
+#' @param hue Select a specific hue from the image to draw colors from.
 #' @param ... Additional arguments passed to \link[cuttlefish]{find_segmented}.
 #' @return Vector of distinct hex colors.
 #' @examples
