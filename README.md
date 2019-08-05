@@ -1,6 +1,6 @@
 # cuttlefish <img src="man/figures/cuttlefish2.png" width="160px" align="right" />
 
-`cuttlefish` is a package that allows you to extract the distinct colors from images. This can be achieved in one of two ways...
+`cuttlefish` is an `R` package that allows you to extract the distinct colors from images. This can be achieved in one of two ways...
 
 1. selecting `n` colors and finding those that are the farthest "close to" equidistant colors from one another.
 2. selecting the `n` most popular colors. 
